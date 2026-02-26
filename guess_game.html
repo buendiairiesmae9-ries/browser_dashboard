@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Guessing Game</title>
+
+
+<style>
+
+    body {
+
+        font-family:
+        Arial, sans-serif;
+        text-align: center;
+        padding: 40px;
+        background-color:#f98fe0;
+        transition: background-color 0.5s ease;
+          
+           }
+
+    .container {
+        background: rgb(171, 125, 239);
+        padding : 30px;
+        border-radius: 20px ;
+        width: 450px; 
+        margin: auto;
+        box-shadow: 0 4px 10px rgba (0,0,0,0,1);
+    }
+    
+    h1 {
+      margin-bottom: 10px;
+      color:#140d12;
+      margin-bottom: 20px;
+    }
+    
+    h2 {
+      margin-bottom: 10px;
+      color: #221622;
+      margin-bottom: 30px ;
+    }
+    
+    input {
+      padding: 10px;
+      width: 80%;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    
+    input:focus {
+      outline: none;
+      border: 2px solid #b144eb;
+    }
+
+    button {
+        padding: 15px 20px;
+        margin-top: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        color: #56043f;
+        background-color:#f3f8c8;
+        border: none;
+        border-radius: 5px;
+        transition: 0.3s ease;
+
+    }
+
+    button:hover {
+        background-color: #5c0543;
+        color: white;
+        transform: scale (1.05);
+    }
+    
+
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #300824;
+    }
+
+    #attemps {
+      margin-top: 10px;
+      color: #470638;
+    }
+
+</style>
+
+
+<head>
+  
+
+<div class= "container">
+     <h1> Word Guessing Game 🤔</h1>
+      <h3> Guess the Thai BL Actor</h3>
+      
+      <p id="hint"></p>
+
+    <input type="text" id="guessInput" placeholder ="Enter your guess 🤔">
+      <br>
+      <button id= "guessBtn">Guess</button>
+      <button id= "restartBtn">Restart</button>
+      
+      <p id= "message"></p>
+      <p id= "attempts"></p>
+
+      <p id= "Name"><h5> Iries Mae Buendia BSIT-2D </h5></p>
+  </div>
+  
+  
+
+
+<script>
+
+
+// SECRET WORDS
+const words = ["ohm", "nanon", "krist", "joong", "fourth", "dunk", "bright", "win", "pond", "lego", "mark"];
+
+// Variables
+let secretWord;
+let attempts;
+const maxAttempts = 7;
+
+
+const guessInput = document.getElementById("guessInput");
+const guessBtn = document.getElementById("guessBtn");
+const restartBtn = document.getElementById("restartBtn");
+const message = document.getElementById("message");
+const attemptsDisplay = document.getElementById("attempts");
+const hint = document.getElementById("hint");
+
+
+function startGame() {
+    //random selection//
+
+    secretWord = words[Math.floor(Math.random() * words.length)];
+    
+    console.log("Secret word:", secretWord); // Display in console for testing
+    
+    attempts = maxAttempts;
+    message.textContent = "";
+    attemptsDisplay.textContent = "Attempts left: " + attempts;
+    guessInput.value = "";
+    document.body.style.backgroundColor = "#f39df3";
+
+    // Hint//
+    hint.textContent = "The HINT word starts with '" + secretWord.charAt(0).toUpperCase() + "'";
+}
+
+
+function checkGuess() {
+    
+    let userGuess = guessInput.value.trim().toLowerCase();
+
+    
+    if (userGuess === "") {
+        attempts--;
+        message.textContent = "Empty guess! That counts as an attempt.";
+        attemptsDisplay.textContent = "Attempts left: " + attempts;
+    }
+
+
+    // guess correct
+    else if (userGuess === secretWord) {
+        message.textContent = " Congratulations! You guessed the secret word! 🎉🎉";
+        message.className="win";
+        document.body.style.backgroundColor = "#fff45c"; // yellow
+        attemptsDisplay.textContent = "";
+        return;
+    }
+    
+    // Incorrect guess
+    else {
+        attempts--;
+        if (attempts > 0) {
+            message.textContent = "Incorrect guess. You have " + attempts + " attempts left. Try again!";
+            attemptsDisplay.textContent = "Attempts left: " + attempts;
+        } else {
+            message.textContent = "Game over! The secret word was '" + secretWord + "'. 😔 "  ;
+            document.body.style.backgroundColor = "#f44336"; // Red
+            attemptsDisplay.textContent = "";
+        }
+    }
+}
+
+//
+guessBtn.addEventListener("click", checkGuess);
+
+// Allow Enter key submission
+guessInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        checkGuess();
+    }
+});
+
+// Restart Button
+restartBtn.addEventListener("click", startGame);
+
+// Start the game when page loads
+startGame();
+
+</script>
+
+</body>
+</html>
