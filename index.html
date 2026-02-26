@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <style>
+        body { 
+            
+            font-family: sans-serif; 
+            background: #c3f1daef; 
+            margin: 0; padding: 40px;
+         }
+         
+        .main-card {
+             max-width: 700px;
+             margin: 0 auto; 
+             background: rgb(251, 156, 156);
+              padding: 40px;
+               border-radius: 15px;
+               box-shadow: 0 10px 30px rgba(10, 8, 8, 0.1);
+            }
+
+        .header { 
+            border-bottom: 3px solid #f1f38b; 
+            padding-bottom: 20px; 
+            margin-bottom: 30px;
+         }
+
+        .info-grid { 
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+            margin-bottom: 30px; 
+            }
+
+        .info-grid div:nth-child(odd) { 
+            font-weight: bold; 
+            color: #3b3a3a; 
+        }
+
+        .activity-links {
+             display: flex;
+             flex-direction: column;
+              gap: 15px;
+             }
+
+        .link-item { 
+            padding: 20px; 
+            background: #f53eec; 
+            color: rgb(18, 16, 16); 
+            text-decoration: none; 
+            border-radius: 8px; 
+            text-align: center; 
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .link-item:hover { 
+            background: #f3c0f0;
+            transform: scale(1.02);
+         }
+
+        .link-item.secondary {
+             background: #ffc338; 
+            }
+
+        .link-item.secondary:hover { 
+            background: #f8e18f;
+         }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="main-card">
+        <div class="header">
+            <h1>Student Profile :)</h1>
+        </div>
+
+        <div class="info-grid">
+            <div>Name:</div><div>Iries Mae Buendia</div>
+            <div>Sex:</div><div>Female</div>
+            <div>Address:</div><div>Balaynan Goa, Camarines Sur</div>
+            <div>Course/Year:</div><div>BSIT 2D</div>
+            <div>School:</div><div>Partido State University</div>
+            <div>Semester/AY:</div><div>2nd Semester and Academic Year 2025-2026</div>
+            <div>Subject:</div><div>PF2 - Event Driven Programming</div>
+            <div>Instructor:</div><div>Arjay F. Abio</div>
+        </div>
+
+        <h2>Activity!! </h2>
+        <div class="activity-links">
+            <a href="guess_game.html" class="link-item"> Guess the Secret Word Game</a>
+            <a href="browser_dashboard.html" class="link-item secondary"> Browser Environment Dashboard</a>
+        </div>
+    </div>
+
+</body>
+</html>

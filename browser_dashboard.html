@@ -1,0 +1,194 @@
+<!--This project is a web-based Browser Environment Dashboard made using HTML, CSS, and JavaScript for the subject PF2: Event Driven Programming.
+The application demonstrates the use of the Browser Object Model (BOM) and Document Object Model (DOM) through three section;
+
+ Part A: Browser & Screen Info displays browser details such as browser name, platform, Java enabled status, screen resolution, available screen size, and color depth using the navigator and screen objects. 
+ Part 2 : Page Info & Controls shows the current URL, hostname, and document title using the location and document objects, and includes a function that allows the user to dynamically change the page title through a prompt input. 
+ Part 3: Dynamic Styling changes the background color of the page depending on the window width using the window.innerWidth property and the resize event listener, demonstrating responsive behavior.
+
+The dashboard also has navigation buttons that allow the user to reload the page, go to BiliBili, and move back or forward in the browser history. 
+This project demonstrates how JavaScript can interact with the browser and respond to user actions.-->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Environment Dashboard</title>
+    <style>
+        :root {
+         --card-bg: rgba(251, 249, 130, 0.9);
+         
+        }
+
+        body { 
+            font-family: 'Sans Serif';
+             transition: background-color 0.5s ease; margin: 0; padding: 20px;
+             }
+             
+        .profile-header {                        
+            background: #f7c5c5;
+            color: rgb(12, 10, 10);
+            padding: 20px; 
+            border-radius: 8px;
+            margin-bottom: 20px; 
+            text-align: center;
+             
+             }
+
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-top: 15px;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            }
+
+        .dashboard-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;    
+            }
+
+        
+        .card { 
+            background: var(--card-bg);
+             padding: 20px; border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+
+            .dashboard { 
+            background: var(--card-bg);
+             padding: 20px; border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: #a9f378;
+            
+            }
+
+            .board { 
+            background: var(--card-bg);
+             padding: 20px; border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: #f7c5c5;
+            }
+
+        h2 { 
+            border-bottom: 2px solid #f7f4f4; 
+            padding-bottom: 5px;
+            }
+
+        button {
+             background: #511f51;
+             color: white; 
+             border: none; 
+             padding: 10px 15px; margin: 10px; 
+             cursor: pointer; 
+             border-radius: 4px; 
+             transition: 0.3s; 
+            }
+
+        button:hover { background: #fb84f5; }
+        .info-item { 
+            margin: 10px 0;
+             font-family: monospace; 
+            }
+
+    </style>
+
+</head>
+<body>
+
+    <header class="profile-header">
+    <img class="profile-img" src="iries.jpg" alt="Gallery">
+    <h1>Iries Mae Buendia</h1>
+    <p>BSIT 2D </p>
+    <p>Female</p>
+    <p>Balaynan Goa, Camarines Sur</p>
+    <p>Partido State University</p>
+    <p>Academic Year: 2025-2026 2nd Semester</p>
+    <p>PF2 Event Driven Programming</p>
+    <p>Instructor: Arjay F. Abio</p>
+</header>
+       
+
+    <div class="dashboard-container">
+        <section class="card">
+            <h2>Part A: Browser Information</h2>
+            <div id="browser-info"></div>
+        </section>
+
+        <section class="dashboard">
+            <h2>Part B: Page Information</h2>
+            <div id="page-info"></div>
+            <button onclick="updateTitle()">Change Title Page</button>
+        </section>
+
+        <section class="board">
+            <h2>Part C: Navigation Controls</h2>
+            <button onclick="location.reload()">Reload Page</button>
+            <button onclick="location.href='https://www.BiliBili.com'">Redirect to BiliBili</button>
+            <br>
+            <button onclick="history.back()">Back</button>
+            <button onclick="history.forward()">Forward</button>
+        </section>
+    </div>
+
+    <script>
+        //  Part 1. Browser Information 
+        function displayBrowserStats() {
+            const infoDiv = document.getElementById('browser-info');
+            infoDiv.innerHTML = `
+                <div class="info-item"><strong>Browser:</strong> ${navigator.appName} (${navigator.userAgent})</div>
+                <div class="info-item"><strong>Platform:</strong> ${navigator.platform}</div>
+                <div class="info-item"><strong>Java Enabled:</strong> ${navigator.javaEnabled()}</div>
+                <div class="info-item"><strong>Resolution:</strong> ${screen.width} x ${screen.height}</div>
+                <div class="info-item"><strong>Available Size:</strong> ${screen.availWidth} x ${screen.availHeight}</div>
+                <div class="info-item"><strong>Color Depth:</strong> ${screen.colorDepth}-bit</div>
+            `;
+        }
+
+        // Part 2. Page Information
+        function displayPageStats() {
+            const pageDiv = document.getElementById('page-info');
+            pageDiv.innerHTML = `
+                <div class="info-item"><strong>URL:</strong> ${location.href}</div>
+                <div class="info-item"><strong>Hostname:</strong> ${location.hostname}</div>
+                <div class="info-item"><strong>Title:</strong> <span id="current-title-text">${document.title}</span></div>
+            `;
+        }
+
+        function updateTitle() {
+            const newTitle = prompt("Enter a new page title:");
+            if (newTitle) {
+                document.title = newTitle; // Updates the browser tab
+                document.getElementById('current-title-text').innerText = newTitle; // Updates the UI
+            }
+        }
+
+        // Part 3. Dynamic Styling 
+        function updateBackground() {
+            const width = window.innerWidth;
+            if (width < 600) {
+                document.body.style.backgroundColor = "blue";
+            } else if (width >= 600 && width < 992) {
+                document.body.style.backgroundColor = "green";
+            } else {
+                document.body.style.backgroundColor = "violet";
+            }
+        }
+
+        // Initialize and Event Listeners
+        window.addEventListener('resize', updateBackground);
+        window.onload = () => {
+            displayBrowserStats();
+            displayPageStats();
+            updateBackground();
+        };
+    </script>
+</body>
+</html>
